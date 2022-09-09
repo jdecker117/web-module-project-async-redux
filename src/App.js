@@ -4,7 +4,7 @@ import axios from 'axios'
 import { getZip } from './actions/actions'
 
 import './App.css';
-
+console.log('something for push')
 function App(props) {
 const { zipCode } = props;
 const [zip, setZip ] = useState();
