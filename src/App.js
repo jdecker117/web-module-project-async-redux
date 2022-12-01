@@ -2,11 +2,10 @@ import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios'
 import { getZip } from './actions/actions'
-
 import './App.css';
-console.log('something for push')
+
 function App(props) {
-const { zipCode } = props;
+const { zipCode, error } = props;
 const [zip, setZip ] = useState();
 
 const handleChange = (evt) => {
@@ -28,23 +27,25 @@ useEffect(() => {
 
   return (
     <div className="App">
-      <h1>Zip Code Identifier</h1>
-      <h3>Enter a Valid Zip Code:</h3>
-      <form onSubmit={handleSubmit}>
-      <input placeholder='32708' onChange={handleChange}></input>
-      <button>Submit</button>
-      </form>
-      <div id='zip-container'>
-        {<h4>{zipCode['place name']}, {zipCode.state}</h4>}
+      <div className='App-header'>
+        <h1>Zip Code Identifier</h1>
+        <h3>Enter a Valid Zip Code:</h3>
+        <form onSubmit={handleSubmit}>
+        <input placeholder='32708' onChange={handleChange}></input>
+        <button>Submit</button>
+        </form>
+        <div id='zip-container'>
+        {error? <p>Invalid Zip Code</p> : <p>{zipCode['place name']}, {zipCode.state}</p>}
+        </div>
       </div>
-      
     </div>
   );
 }
 
 const mapStateToProps = state => {
   return {
-    zipCode: state.zipCode
+    zipCode: state.zipCode,
+    error: state.error
   }
 }
 
